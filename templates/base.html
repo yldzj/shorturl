@@ -3,13 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .container {
+            width:400px;
+            text-align: center;
+            margin:auto;
+        }
+        div.guide {
+            background: white;
+            font-size: medium;
+        }
+        a.header-item {
+            text-decoration: none;
+        }
+        a.guide-item {
+            display:inline-block;
+            color: black;
+            padding: 20px;
+            text-decoration: none;
+        }
+        p {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <div class="ref">
-        <a href="/index">网址缩短</a>
-        <a href="/back">网址还原</a>
+<div class="container">
+<div class="header">
+    <h1><a class="header-item" href="###">welcome to my website</a></h1>
+</div>
+    <div class="guide">
+        <a class="guide-item" href="/index">网址缩短</a>
+        <a class="guide-item" href="/back">网址还原</a>
     </div>
     {% block content %}
     {% endblock %}
+</div>
 </body>
 </html>

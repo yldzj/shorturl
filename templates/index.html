@@ -1,19 +1,45 @@
 {% extends  "base.html" %}
 {% block content %}
+    <style>
+        .button {
+            display: inline-block;
+            vertical-align: baseline;
+            margin: 0 2px;
+            cursor: pointer;
+            text-align: center;
+            font: 14px/100% Arial, Helvetica, sans-serif;
+            padding: .5em 2em .55em;
+            -webkit-border-radius: .5em;
+            color: #d7d7d7;
+            border: solid 1px #333;
+            background: #333;
+        }
+        .input {
+            font-size: 1.4em;
+            height: 1.8em;
+            border-radius: 4px;
+            border: 1px solid #c8cccf;
+            color: #6a6f77;
+            display: inline-block;
+            outline: 0;
+            padding: 0 1em;
+        }
+    </style>
 <form action="/short" method="post">
-<input type="text" placeholder="输入网址" name="ori_url">
-<button type="submit">压缩</button>
+    <p>请输入你的网址</p>
+<input class="input" type="text"  name="ori_url">
+<button class="button" type="submit">压缩</button>
 </form>
     <div>
         <p>以下是新的网址</p>
-    <input class="short_url" type="text" name="short" value="{{ value }}">
-        <input type="button"  value="copy" onclick="copy()">
+    <input class="short_url input" type="text" name="short" value="{{ value }}">
+        <input class="button" type="button"  value="copy" onclick="copy()">
     </div>
     <script type="text/javascript">
         function copy() {
             content = document.querySelector('.short_url');
             content.select();
-            document.execCommand("Copy"); // 执行浏览器复制命令
+            document.execCommand("Copy");
             alert("已复制好，可贴粘。");
         }
     </script>

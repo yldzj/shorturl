@@ -3,7 +3,6 @@ import os
 from url import get_key
 
 
-
 def save(data):
     s = json.dumps(data, indent=2, ensure_ascii=False)
     dirs = os.path.dirname(os.path.dirname(__file__))
@@ -25,10 +24,6 @@ def load():
             return json.loads(s)
         else:
             return []
-
-
-def short_url_method(url):
-    return 'ok'
 
 
 class Shorturl(object):

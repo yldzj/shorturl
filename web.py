@@ -5,7 +5,8 @@ from flask import (
     redirect,
     url_for,
 )
-from models import Shorturl,short_url_method
+from models import Shorturl
+
 app = Flask(__name__)
 
 
@@ -19,43 +20,46 @@ def get_index():
     return render_template('index.html')
 
 
-@app.route('/back',methods=['get'])
+@app.route('/back', methods=['get'])
 def get_back():
     return render_template('back.html')
 
 
-@app.route('/short',methods=['POST'])
+@app.route('/short', methods=['POST'])
 def url_short():
-    url = request.form.get('ori_url','')
+    url = request.form.get('ori_url', '')
     short_url = Shorturl(url)
     short_url.save()
-    s_url = request.host+'/sh/'+short_url.short_url
-    return render_template('index.html',value=s_url)
+    s_url = request.host + '/sh/' + short_url.short_url
+    return render_template('index.html', value=s_url)
 
 
-@app.route('/sh/<surl>/',methods=['get'])
+@app.route('/sh/<surl>/', methods=['get'])
 def url_trans(surl):
     url = Shorturl.find_by(short_url=surl)
     if url:
-        return redirect(url.ori_url,302)
+        if url.ori_url.startswith('http://') or url.ori_url.startswith('https://'):
+            return redirect(url.ori_url, 302)
+        else:
+            return redirect('http://'+url.ori_url,302)
     else:
         return redirect(url_for("/index"))
 
 
-@app.route('/back',methods=['post'])
+@app.route('/back', methods=['post'])
 def url_back():
     short_url = request.form.get('short_url', '')
     new = short_url.split('/')[-1]
     url = Shorturl.find_by(short_url=new)
     if url:
-        return render_template('back.html',value=url.ori_url)
+        return render_template('back.html', value=url.ori_url)
     else:
         return redirect('/back')
 
 
 if __name__ == '__main__':
-   config = dict(      
+    config = dict(
         host='0.0.0.0',
-        port=5000,
+        port=80,
     )
     app.run(**config)
