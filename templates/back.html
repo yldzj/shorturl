@@ -1,0 +1,20 @@
+{% extends  "base.html" %}
+{% block content %}
+<form action="/back" method="post">
+    <input name="short_url" type="text">
+    <button type="submit">还原</button>
+</form>
+<div>
+    <p>以下是新的网址</p>
+    <input class="short_url" type="text" name="short" value="{{ value }}">
+    <input type="button" value="copy" onclick="copy()">
+</div>
+    <script type="text/javascript">
+            function copy(){
+                content = document.querySelector('.short_url');
+                content.select();
+                document.execCommand("Copy"); // 执行浏览器复制命令
+                alert("已复制好，可贴粘。");
+            }
+            </script>
+{% endblock %}

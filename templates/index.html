@@ -1,0 +1,20 @@
+{% extends  "base.html" %}
+{% block content %}
+<form action="/short" method="post">
+<input type="text" placeholder="输入网址" name="ori_url">
+<button type="submit">压缩</button>
+</form>
+    <div>
+        <p>以下是新的网址</p>
+    <input class="short_url" type="text" name="short" value="{{ value }}">
+        <input type="button"  value="copy" onclick="copy()">
+    </div>
+    <script type="text/javascript">
+        function copy() {
+            content = document.querySelector('.short_url');
+            content.select();
+            document.execCommand("Copy"); // 执行浏览器复制命令
+            alert("已复制好，可贴粘。");
+        }
+    </script>
+{% endblock %}
